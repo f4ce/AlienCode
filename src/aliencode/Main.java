@@ -6,6 +6,7 @@
 package aliencode;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -35,10 +36,10 @@ public class Main {
 			alien.setNoOfAntenna(Integer.parseInt(bufferedReader.readLine()));
 			System.out.println("No of Legs:");
 			alien.setNoOfLegs(Integer.parseInt(bufferedReader.readLine()));
-                        //Get Format for exporting
+                        //Get Format for exportingFile dir = new File("put path to classes you want to load here");
+                                    
 			System.out.println("Enter Export format");
-			System.out.println("TEXT : " + 0);
-			System.out.println("PDF : " + 1);
+			theReader();
                         System.out.println("Any Other number will be considered as Exit point");
 			int userInput=0;//Default is text
 			String input;
@@ -58,19 +59,7 @@ public class Main {
                                 flag=true;
                             }
                         }
-                        if(userInput==1)
-                        {
-                            Export.pdfFormat(alien);
-                        }
-                        else if(userInput==0)
-                        {
-                            Export.textFormat(alien);
-                        }
-                        else
-                        {
-                            System.out.println("Exiting the program");
-                        }
-
+                       new ChooseFormat().chooseFormat(userInput,alien);
 		} 
                 catch (IOException e) {
 			System.out.println(e);
@@ -93,4 +82,27 @@ public class Main {
 		}
 		return false;
 	}
+        private static void theReader()throws Exception
+        {
+            FileReader fr= new FileReader("FormatNames.txt");
+            int flag=0;
+                        BufferedReader br=new BufferedReader(fr);
+                        while(true)
+                                {
+                                    try
+                                    {
+                                        String s=br.readLine();
+                                        if(s!=null)
+                                        System.out.println(s);
+                                        else
+                                            break;
+                                    }
+                                    catch(Exception e )
+                                    {
+                                        flag=1;
+                                    }
+                                    if (flag==1)
+                                        break;
+                                }
+        }
 }
